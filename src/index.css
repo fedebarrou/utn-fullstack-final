@@ -1,10 +1,42 @@
 @import "./index_dark.css";
 
+/* ================== Base / tokens ================== */
+:root {
+  --c-bg: #fff;
+  --c-bg-soft: #fafafa;
+  --c-elev: #fff;
+  --c-border: #e5e7eb;
+  --c-border-2: #ddd;
+  --c-muted: #f1f1f1;
+  --c-text: #1f2f36;
+  --c-text-strong: #0f172a;
+  --c-sub: #666;
+  --c-sub-2: #8a8a8a;
+  --c-slate-700: #334155;
+  --c-slate-400: #94a3b8;
+  --c-brand: #2562d3;
+  --c-wa: #25d366;
+  --c-primary: #007bff;
+  --c-danger: #ae4343;
+
+  --r-pill: 9999px;
+  --r-card: 12px;
+  --h-header: 56px;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, .04);
+  --shadow-pop: 0 10px 24px rgba(0, 0, 0, .12);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+p {
+  margin: 0;
+  font-size: 16px;
 }
 
 .app {
@@ -14,112 +46,156 @@
 
 .sidebar {
   width: 30rem;
-  background-color: white;
-  border-right: 1px solid #ddd;
+  background: var(--c-bg);
+  border-right: 1px solid var(--c-border-2);
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
+.user-not-found {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* ===== Sidebar header (sin borde inferior) ===== */
-.sidebar-header {
+/* ================== Headers ================== */
+:is(.sidebar-header, .chat-header, .newchat-header) {
   display: flex;
   align-items: center;
+
+  min-height: var(--h-header);
+  padding: 0 12px;
+  background: var(--c-elev);
+}
+
+
+:is(.sidebar-header, .chat-header) {
   justify-content: space-between;
-  height: 56px;
-  padding: 0 10px;
-  background-color: #fff;
+}
+
+.sidebar-header {
   position: sticky;
   top: 0;
   z-index: 2;
 }
 
-.sidebar-title {
+.chat-header {
+  border-bottom: 1px solid var(--c-border-2);
+}
+
+/* Títulos / acciones */
+.sidebar-title,
+.newchat-title {
   font-size: 16px;
   font-weight: 700;
   color: #012261;
-  ;
   padding-left: 10px;
-
 }
 
-.sidebar-actions {
+.sidebar-actions,
+.chat-actions {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  position: relative;
 }
 
-.sidebar-btn {
-  width: 32px;
-  height: 32px;
-  border: none;
+/* Botón redondo reutilizable */
+.sidebar-btn,
+.newchat-back,
+.profileuser-close {
+  inline-size: 32px;
+  block-size: 32px;
+  border: 0;
   background: transparent;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   display: grid;
   place-items: center;
   cursor: pointer;
   color: #444;
 }
 
-.sidebar-btn:hover {
-  background-color: #eee;
+.sidebar-btn:hover,
+.newchat-back:hover,
+.profileuser-close:hover {
+  background: #f2f2f2;
 }
 
 .sidebar-btn:active {
   transform: translateY(1px);
 }
 
+.sidebar-icon,
+.popup-icon,
+.composer-icon {
+  width: 20px;
+  height: 20px;
+  color: #111827;
+}
+
 .sidebar-icon {
   width: 18px;
   height: 18px;
-  pointer-events: none;
 }
 
-
-
-/* ===== Search pill con icono ===== */
-.search-wrap {
-  position: sticky;
-  top: 56px;
-  z-index: 1;
+/* ================== Search pills ================== */
+:is(.search-wrap, .newchat-search) {
   display: grid;
   grid-template-columns: 28px 1fr;
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
   margin: 8px 10px;
-  border-radius: 999px;
-  background-color: #f1f1f1;
-  border: 1px solid #e9e9e9;
+  border-radius: var(--r-pill);
+  background: var(--c-elev);
+  border: 1px solid var(--c-border);
 }
 
-.search-icon {
+.search-wrap {
+  position: sticky;
+  top: var(--h-header);
+  z-index: 1;
+  background: var(--c-muted);
+  border-color: #e9e9e9;
+}
+
+.newchat-search {
+  border: 2px solid var(--c-brand);
+  background: #fff;
+}
+
+.search-icon,
+.newchat-search-icon {
   width: 16px;
   height: 16px;
   justify-self: center;
   color: #8c8c8c;
-  pointer-events: none;
 }
 
-.search-input {
+.search-input,
+.newchat-search-input {
   width: 100%;
-  border: none;
-  outline: none;
+  border: 0;
+  outline: 0;
   background: transparent;
   font-size: 14px;
   color: #222;
 }
 
-.search-input::placeholder {
+.search-input::placeholder,
+.newchat-search-input::placeholder {
   color: #7b7b7b;
 }
 
-
-
-/* user list */
-
+/* ================== User list (sidebar) ================== */
 .user-list {
   list-style: none;
   padding: 8px 10px;
@@ -139,16 +215,27 @@
   border-radius: 20px;
 }
 
-.user-preview.is-empty {
-  color: #9ca3af;
-  /* gris suave */
-  font-style: italic;
+.user:hover {
+  background: #eee;
 }
 
-/* ===== Estado seleccionado ===== */
 .user.is-active {
-  background-color: #eeeeee;
+  background: #eee;
   border-color: #e6e6e6;
+}
+
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 2px solid #ddd;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
 }
 
 .user-name {
@@ -174,23 +261,16 @@
   white-space: nowrap;
 }
 
-.user:hover {
-  background-color: #eee;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 5px;
+.user-preview.is-empty {
+  color: #9ca3af;
+  font-style: italic;
 }
 
 .user-info small {
-  color: rgb(95, 95, 95);
+  color: #5f5f5f;
   font-size: 13px;
 }
 
-/* Fila superior: nombre + hora/online */
 .user-top {
   display: flex;
   align-items: center;
@@ -199,16 +279,14 @@
   min-height: 22px;
 }
 
-/* Lado derecho (hora / online) más grande y centrado con el icono */
 .user-time {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 14px;
-  color: #8a8a8a;
+  color: var(--c-sub-2);
   line-height: 1;
 }
-
 
 .user-time.is-online {
   color: #757575;
@@ -220,59 +298,26 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #25d366;
+  background: var(--c-wa);
   display: inline-block;
 }
 
-.avatar {
-  width: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-  border: 2px solid #ddd;
-}
-
-/* end user list */
-
-.chat {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-
-.user-not-found {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.chat-header {
-  min-height: 56px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 12px;
-  /* similar a WA */
-  background: #fff;
-  /* igual a tu sidebar header */
-  border-bottom: 1px solid #ddd;
-  /* si no querés línea, quitalo */
-}
-
-/* bloque izquierdo: avatar + nombre (y back en mobile) */
+/* ================== Chat user header ================== */
 .chat-user {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  width: 100%
+  width: 100%;
 }
 
 .chat-user--clickable {
   cursor: pointer;
 }
 
-/* avatar chico como en la captura */
+.chat-user--clickable:hover .chat-user-name {
+  opacity: .95;
+}
+
 .chat-avatar {
   width: 36px;
   height: 36px;
@@ -281,67 +326,26 @@
   border: 1px solid #e6e6e6;
 }
 
-/* nombre en una sola línea, tipografía más “marcada” */
 .chat-user-name {
   font-weight: 600;
   font-size: 15px;
-  color: #1f2f36;
+  color: var(--c-text);
   max-width: 40vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* derecha: sólo un botón redondo (hereda tu sidebar-btn/icon) */
-.chat-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* opcional: al pasar el mouse sobre el bloque izquierdo, realce sutil */
-.chat-user--clickable:hover .chat-user-name {
-  text-decoration: none;
-  opacity: .95;
-}
-
-.chat-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.chat-actions button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-
+/* ================== Messages ================== */
 .chat-messages {
   flex: 1;
-  padding: 15px;
-  background-color: #fafafa;
+  padding: 16px 18px;
+  background: var(--c-bg-soft);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
-
-
-.chat-item:hover {
-  background: #f2f2f2;
-}
-
-.chat-item.is-active {
-  background: #eeeeee;
-  border-color: #e6e6e6;
-}
-
-
-/* ==== Burbujas diferenciadas por remitente ==== */
-/* Base */
 .message {
   position: relative;
   padding: 8px 12px;
@@ -350,11 +354,8 @@
   line-height: 1.35;
   font-size: 14.5px;
   box-shadow: 0 1px 1.5px rgba(0, 0, 0, .04);
-  /* quitamos el align-self global para no forzar lado */
-  align-self: initial;
 }
 
-/* Hora dentro de la burbuja */
 .message .time {
   display: block;
   margin-top: 4px;
@@ -364,82 +365,52 @@
   white-space: nowrap;
 }
 
-/* ====== MI MENSAJE (derecha, celeste) ====== */
 .message.is-me,
 .message[data-from="me"] {
   align-self: flex-end;
   background: rgb(206, 246, 255);
-  color: #0f172a;
+  color: var(--c-text-strong);
   border: 1px solid #b9e8f5;
   border-bottom-right-radius: 6px;
-  /* esquina como WA */
 }
 
-/* colita a la derecha */
 .message.is-me::after,
 .message[data-from="me"]::after {
   content: "";
   position: absolute;
   right: -6px;
   bottom: 0;
-  width: 0;
-  height: 0;
   border-left: 6px solid rgb(206, 246, 255);
   border-top: 6px solid transparent;
-  border-bottom: 0 solid transparent;
-  filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
-  /* evita sombras raras */
 }
 
-/* ====== SU MENSAJE (izquierda, blanco) ====== */
 .message.is-them,
 .message[data-from="them"] {
   align-self: flex-start;
   background: #fff;
   color: #111827;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--c-border);
   border-bottom-left-radius: 6px;
-  /* esquina como WA */
 }
 
-/* colita a la izquierda */
-.message.is-them::before,
-.message[data-from="them"]::before {
+.message.is-them::before {
   content: "";
   position: absolute;
   left: -6px;
   bottom: 0;
-  width: 0;
-  height: 0;
   border-right: 6px solid #fff;
   border-top: 6px solid transparent;
-  border-bottom: 0 solid transparent;
 }
 
-/* Hover sutil (opcional) */
-.message.is-me:hover,
-.message[data-from="me"]:hover,
-.message.is-them:hover,
-.message[data-from="them"]:hover {
-  filter: brightness(0.995);
+.message:is(.is-me, [data-from="me"], .is-them, [data-from="them"]):hover {
+  filter: brightness(.995);
 }
 
-/* Ajuste del contenedor */
-.chat-messages {
-  flex: 1;
-  padding: 16px 18px;
-  background: #fafafa;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* ===== Composer estilo WhatsApp (React icons) ===== */
+/* ================== Composer ================== */
 .chat-footer {
   padding: 8px 12px;
   border-top: 1px solid #eee;
   background: transparent;
-  /* deja ver el wallpaper */
 }
 
 .chat-footer form {
@@ -448,48 +419,39 @@
   gap: 8px;
 }
 
-/* Campo de texto tipo píldora */
 .chat-footer input {
   flex: 1 1 auto;
   height: 42px;
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
   background: #fff;
   padding: 0 12px;
   font-size: 15px;
-  outline: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  outline: 0;
+  box-shadow: var(--shadow-soft);
 }
 
 .chat-footer input::placeholder {
   color: #9ca3af;
 }
 
-/* Botones redondos para emoji y micro */
 .composer-btn {
   width: 42px;
   height: 42px;
-  border-radius: 9999px;
-  border: 1px solid #e5e7eb;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-border);
   background: #fff;
   display: grid;
   place-items: center;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  box-shadow: var(--shadow-soft);
 }
 
 .composer-btn:hover {
   background: #f7f7f7;
 }
 
-.composer-icon {
-  width: 20px;
-  height: 20px;
-  color: #111827;
-}
-
-
-/* Login page */
+/* ================== Login ================== */
 .login-main {
   height: 100vh;
   display: flex;
@@ -497,12 +459,11 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #ffffff, #8cd0e4);
-  color: white;
+  color: #fff;
 }
 
 .login-main img {
   width: 20rem;
-
 }
 
 .login-main h1 {
@@ -511,10 +472,10 @@
 }
 
 .login-main form {
-  background-color: white;
+  background: #fff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -522,77 +483,77 @@
 }
 
 .login-main form label {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
-  color: rgb(66, 66, 66);
+  color: #424242;
   text-align: center;
 }
 
 .login-main form input {
   padding: 10px;
   border: 1px solid #ddd;
-  outline: none;
+  outline: 0;
   font-size: 14px;
 }
 
 .login-main form input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 4px rgba(0, 123, 255, .3);
 }
 
 .login-main form button {
   padding: 10px;
-  border: none;
+  border: 0;
   border-radius: 6px;
-  background-color: #007bff;
-  color: white;
+  background: var(--c-primary);
+  color: #fff;
   font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color .3s;
 }
 
-/* === Footer pegado al bottom === */
+form button:hover {
+  background-color: #0056b3;
+}
+
+.text-info {
+  margin-top: 2rem;
+  font-size: 16px;
+  color: var(--c-text-strong);
+}
+
+/* Footer “remover LS” pegado abajo */
 .login-footer {
   position: sticky;
-  /* se queda pegado al final del <main> */
   bottom: 0;
   margin-top: 24px;
   padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
   display: flex;
   justify-content: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid rgba(0, 0, 0, .06);
 }
 
-/* === Botón “Remover localStorage (users)” === */
 .login-footer>button {
   appearance: none;
   border: 0;
-  border-radius: 999px;
-  /* pill */
+  border-radius: var(--r-pill);
   padding: 12px 18px;
   font-weight: 600;
   letter-spacing: .2px;
   cursor: pointer;
-  background: #ae4343;
-  /* rojo base */
+  background: var(--c-danger);
   color: #fff;
   box-shadow: 0 8px 16px rgba(239, 68, 68, .35), 0 2px 4px rgba(0, 0, 0, .08);
-  transition:
-    transform .08s ease,
-    box-shadow .2s ease,
-    background-color .2s ease,
-    opacity .2s ease;
+  transition: transform .08s ease, box-shadow .2s ease, background-color .2s ease, opacity .2s ease;
   width: 100%;
   max-width: 420px;
-  /* que no sea infinito en desktop */
   text-align: center;
 }
 
 .login-footer>button:hover {
   background: #dc2626;
-  /* más oscuro al hover */
-  box-shadow: 0 10px 20px rgba(220, 38, 38, .40), 0 3px 6px rgba(0, 0, 0, .10);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, .4), 0 3px 6px rgba(0, 0, 0, .1);
 }
 
 .login-footer>button:active {
@@ -602,7 +563,6 @@
 
 .login-footer>button:focus-visible {
   outline: 2px solid #fecaca;
-  /* anillo accesible */
   outline-offset: 2px;
 }
 
@@ -611,11 +571,10 @@
   cursor: not-allowed;
 }
 
-/* Tema oscuro (opcional) */
 @media (prefers-color-scheme: dark) {
   .login-footer {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.06), transparent);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(to top, rgba(255, 255, 255, .06), transparent);
+    border-top: 1px solid rgba(255, 255, 255, .08);
   }
 
   .login-footer>button {
@@ -623,58 +582,14 @@
   }
 }
 
-
-form button:hover {
-  background-color: #0056b3;
-}
-
-p {
-  margin: 0;
-  font-size: 16px;
-}
-
-.text-info {
-  margin-top: 2rem;
-  font-size: 16px;
-  color: #0f172a;
-}
-
-
-
-/* ===== Overlay NewChat ocupando todo el aside ===== */
+/* ================== NewChat overlay ================== */
 .newchat {
   position: absolute;
   inset: 0;
-  /* top:0 right:0 bottom:0 left:0 */
   background: #fff;
   display: flex;
   flex-direction: column;
   z-index: 50;
-  /* por encima de la lista */
-}
-
-/* Header (igual a WhatsApp: back + título) */
-.newchat-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 56px;
-  padding: 0 10px;
-}
-
-.newchat-back {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: transparent;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-
-.newchat-back:hover {
-  background: #f2f2f2;
 }
 
 .newchat-back-icon {
@@ -682,49 +597,11 @@ p {
   height: 20px;
 }
 
-.newchat-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #222;
-}
-
-/* Buscador pill con icono */
-.newchat-search {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  margin: 8px 10px;
-  border-radius: 999px;
-  border: 2px solid #2562d3;
-  background: #fff;
-}
-
-.newchat-search-icon {
-  width: 16px;
-  height: 16px;
-  justify-self: center;
-  color: #6c6c6c;
-}
-
-.newchat-search-input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  color: #222;
-}
-
-.newchat-search-input::placeholder {
-  color: #777;
-}
-
-/* Lista de contactos */
 .newchat-list {
   flex: 1;
   overflow: auto;
   padding: 0 6px 12px;
+  -webkit-overflow-scrolling: touch;
 }
 
 .newchat-subtitle {
@@ -733,7 +610,6 @@ p {
   color: #6f6f6f;
 }
 
-/* Item */
 .newchat-item {
   width: 100%;
   display: grid;
@@ -783,14 +659,13 @@ p {
 
 .newchat-meta {
   font-size: 13px;
-  color: #666;
+  color: var(--c-sub);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-
-/* ====== Agrupado por letra (NewChat) ====== */
+/* Agrupado por letra */
 .newchat-section {
   margin: 0 0 6px;
 }
@@ -803,13 +678,10 @@ p {
   gap: 2px;
 }
 
-/* Header de letra: sticky dentro de .newchat-list */
 .newchat-letter {
   position: sticky;
   top: 0;
-  /* se pega al tope del panel de contactos */
   z-index: 2;
-  /* por encima de los items */
   display: flex;
   align-items: center;
   padding: 6px 10px;
@@ -817,54 +689,32 @@ p {
   font-weight: 700;
   letter-spacing: .4px;
   text-transform: uppercase;
-  color: #334155;
-  /* slate-700 */
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.98),
-      rgba(255, 255, 255, 0.94));
-  border-top: 1px solid #eef2f7;
-  /* borde muy suave */
-  border-bottom: 1px solid #eef2f7;
+  color: var(--c-slate-700);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .98), rgba(255, 255, 255, .94));
+  border-block: 1px solid #eef2f7;
 }
 
-/* Opcional: mini separador a la izquierda para marcar la letra */
 .newchat-letter::before {
   content: "";
   inline-size: 6px;
   block-size: 6px;
-  border-radius: 999px;
-  background: #94a3b8;
-  /* slate-400 */
+  border-radius: var(--r-pill);
+  background: var(--c-slate-400);
   margin-right: 8px;
   opacity: .6;
 }
 
-/* iOS scroll suave dentro de la lista */
-.newchat-list {
-  -webkit-overflow-scrolling: touch;
-}
-
-
-
-
-
-
-/* anclaje (si no lo tenías ya) */
-.sidebar-actions {
-  position: relative;
-}
-
-/* Popup */
+/* ================== Popup (sidebar menu) ================== */
 .popup-sidebar {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
   width: 240px;
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid var(--c-border-2);
   border-radius: 12px;
   padding: 6px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
+  box-shadow: var(--shadow-pop);
   z-index: 100;
 }
 
@@ -873,7 +723,6 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* texto a izq, switch a der */
   gap: 10px;
   padding: 10px 12px;
   background: transparent;
@@ -895,12 +744,6 @@ p {
   gap: 10px;
 }
 
-.popup-icon {
-  width: 20px;
-  height: 20px;
-  color: #444;
-}
-
 .popup-sep {
   border: 0;
   height: 1px;
@@ -908,7 +751,7 @@ p {
   margin: 6px;
 }
 
-/* Toggle visual */
+/* Toggle */
 .toggle {
   position: relative;
   display: inline-block;
@@ -920,7 +763,7 @@ p {
   position: absolute;
   inset: 0;
   background: #d7d7d7;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
 }
 
 .toggle-thumb {
@@ -939,8 +782,7 @@ p {
   transform: translateX(16px);
 }
 
-
-/* ===== ProfileUser (aside derecho estilo WhatsApp) ===== */
+/* ================== ProfileUser (drawer derecho) ================== */
 .profileuser-root {
   position: fixed;
   inset: 0;
@@ -964,9 +806,8 @@ p {
   top: 0;
   height: 100dvh;
   width: min(480px, 100vw);
-  /* un poco más ancho que antes */
   background: #fff;
-  border-left: 1px solid #e5e7eb;
+  border-left: 1px solid var(--c-border);
   box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
   display: flex;
   flex-direction: column;
@@ -986,12 +827,10 @@ p {
   }
 }
 
-/* Header */
 .profileuser-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* título a la izq, X a la der */
   gap: .5rem;
   padding: .75rem 1rem;
   border-bottom: 1px solid #f1f5f9;
@@ -1004,22 +843,10 @@ p {
   color: #0f172a;
 }
 
-/* La X va a la derecha del título;
-   en mobile/tablet se ve "junto" gracias al gap chico */
 .profileuser-close {
   inline-size: 36px;
   block-size: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 10px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.profileuser-close:hover {
-  background: #f3f4f6;
 }
 
 .profileuser-close:focus-visible {
@@ -1027,13 +854,6 @@ p {
   outline-offset: 2px;
 }
 
-.profileuser-close-icon {
-  width: 22px;
-  height: 22px;
-  color: #374151;
-}
-
-/* Body */
 .profileuser-body {
   padding: 1.75rem 1rem 2rem;
   display: flex;
@@ -1068,59 +888,44 @@ p {
   font-weight: 600;
 }
 
+/* ================== Misc ================== */
+.login-main form button:hover {
+  background-color: #0056b3;
+}
 
-
-
-
-
-
-/* Tablet y abajo: vista móvil/tablet (≤1024px) */
-@media (max-width: 1024px) {
+/* ================== Responsive ≤1024px ================== */
+@media (max-width:1024px) {
   .app {
     height: 100dvh;
-    /* mejor en móviles con barras */
     min-height: 100vh;
-    /* fallback */
   }
 
   .sidebar {
     width: 100vw;
-    /* full width */
     height: 100dvh;
-    /* full height */
     min-height: 100vh;
-    /* fallback */
     max-width: none;
     border-right: 0;
-    /* sin división en fullscreen */
     position: relative;
-    /* mantiene overlays (NewChat) anclados */
   }
 
-  /* Header/Sticky ya lo tenés; aseguramos alturas consistentes */
-  .sidebar-header,
-  .chat-header {
-    min-height: 56px;
+  :is(.sidebar-header, .chat-header) {
+    min-height: var(--h-header);
   }
 
-  /* La lista ocupa el resto del alto y scrollea */
   .user-list {
     flex: 1;
     overflow-y: auto;
   }
 
-  /* Ocultamos el placeholder de “sin usuario” en mobile */
   .user-not-found {
     display: none;
   }
 
-  /* Por defecto en móvil mostramos SOLO el sidebar */
   .chat {
     display: none;
   }
 
-  /* Cuando .app tiene show-chat (lo setea JS al seleccionar un contacto),
-     invertimos: ocultamos sidebar y mostramos el chat */
   .app.show-chat .sidebar {
     display: none;
   }
@@ -1129,14 +934,10 @@ p {
     display: flex;
   }
 
-  /* o block según tu layout */
-
-  /* Overlay NewChat ya ocupa el aside; reforzamos stacking */
   .newchat {
     z-index: 50;
   }
 
-  /* ProfileUser: full screen en tablet/móvil */
   .profileuser {
     width: 100vw;
     border-left: 0;
@@ -1148,12 +949,10 @@ p {
     gap: .25rem;
   }
 
-  /* Popover del menú: evita desbordes en pantallas chicas */
   .popup-sidebar {
     right: 8px;
     left: auto;
   }
-
 
   .profileuser-title {
     font-size: 1rem;

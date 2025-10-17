@@ -4,7 +4,7 @@ body.theme-dark {
   /* pistas para inputs nativos */
 }
 
-/* LAYOUTS */
+/* ===== LAYOUTS ===== */
 body.theme-dark .app {
   background: #0b141a;
 }
@@ -30,7 +30,7 @@ body.theme-dark .sidebar-btn:hover {
   background: #202c33;
 }
 
-/* SEARCH pill del sidebar */
+/* ===== SEARCH pill del sidebar ===== */
 body.theme-dark .search-wrap {
   background-color: #1f2c33;
   border-color: #2a3942;
@@ -48,7 +48,7 @@ body.theme-dark .search-result {
   color: #94a3ab;
 }
 
-/* LISTA DE CHATS */
+/* ===== LISTA DE CHATS ===== */
 body.theme-dark .user {
   border-color: #1f2c33;
 }
@@ -82,54 +82,87 @@ body.theme-dark .avatar {
   border-color: #2a3942;
 }
 
-/* CHAT (panel derecho) */
+/* ===== CHAT (panel derecho) ===== */
 body.theme-dark .chat-header {
   background-color: #111b21;
   border-bottom-color: #202c33;
 }
 
-body.theme-dark .chat-user .chat-user-name {
+body.theme-dark .chat-user-name {
   color: #e9edef;
 }
-
-
 
 body.theme-dark .chat-messages {
   background-color: #0b141a;
 }
 
+/* (reset) no pintes todas las burbujas iguales en dark */
 body.theme-dark .message {
-  background-color: #005c4b;
-  /* burbuja propia estilo WA */
-  color: #e9edef;
+  background: transparent;
+  border-color: transparent;
+  color: inherit;
 }
 
-body.theme-dark .message .time {
+/* ====== SU MENSAJE (izquierda, “them”) ====== */
+body.theme-dark .message.is-them,
+body.theme-dark .message[data-from="them"],
+.dark .message.is-them,
+.dark .message[data-from="them"] {
+  background: #3a5f72;
+  /* gris azulado WA */
+  color: #e9edef;
+  border: 1px solid #2a3942;
+  border-bottom-left-radius: 6px;
+  /* esquina WA */
+}
+
+body.theme-dark .message.is-them::before,
+body.theme-dark .message[data-from="them"]::before,
+.dark .message.is-them::before,
+.dark .message[data-from="them"]::before {
+  border-right-color: #1f2c33;
+  /* colita misma bg */
+}
+
+/* ====== MI MENSAJE (derecha, “me”) ====== */
+body.theme-dark .message.is-me,
+body.theme-dark .message[data-from="me"],
+.dark .message.is-me,
+.dark .message[data-from="me"] {
+  background: #005c4b;
+  /* verde WA */
+  color: #e9edef;
+  border: 1px solid #016e58;
+  border-bottom-right-radius: 6px;
+  /* esquina WA */
+}
+
+body.theme-dark .message.is-me::after,
+body.theme-dark .message[data-from="me"]::after,
+.dark .message.is-me::after,
+.dark .message[data-from="me"]::after {
+  border-left-color: #005c4b;
+  /* colita misma bg */
+}
+
+/* Hora dentro de la burbuja */
+body.theme-dark .message .time,
+.dark .message .time {
   color: #b3c2c8;
 }
 
-
-.dark .message.is-them,
-.dark .message[data-from="them"] {
-  background: #111827;
-  color: #e5e7eb;
-  border-color: #374151;
+/* Hover sutil (opcional) */
+body.theme-dark .message.is-them:hover,
+.dark .message.is-them:hover {
+  filter: brightness(1.03);
 }
 
-.dark .message.is-them::before,
-.dark .message[data-from="them"]::before {
-  border-right-color: #111827;
+body.theme-dark .message.is-me:hover,
+.dark .message.is-me:hover {
+  filter: brightness(1.06);
 }
 
-.dark .message.is-me,
-.dark .message[data-from="me"] {
-  background: #0ea5e9;
-  border-color: #0284c7;
-  color: #052c3a;
-}
-
-/* FOOTER */
-/* Dark mode opcional (si usás .dark en <body> o .app) */
+/* ===== FOOTER ===== */
 body.theme-dark .chat-footer {
   border-top-color: #202c33;
 }
@@ -157,27 +190,7 @@ body.theme-dark .composer-icon {
   color: #e9edef;
 }
 
-/* NEW CHAT overlay */
-
-/* ===== Modo oscuro ===== */
-.dark .newchat-letter {
-  color: #e5e7eb;
-  /* zinc-200 */
-  background: linear-gradient(to bottom,
-      rgba(17, 24, 39, 0.98),
-      /* gray-900 */
-      rgba(17, 24, 39, 0.94));
-  border-top-color: #1f2937;
-  /* gray-800 */
-  border-bottom-color: #1f2937;
-}
-
-.dark .newchat-letter::before {
-  background: #64748b;
-  /* slate-500 */
-  opacity: .9;
-}
-
+/* ===== NEW CHAT overlay ===== */
 body.theme-dark .newchat {
   background: #111b21;
 }
@@ -221,7 +234,23 @@ body.theme-dark .newchat-avatar--placeholder {
   color: #c4d0d6;
 }
 
-/* POPUP */
+/* Header de letra sticky (alias para quien use .dark) */
+.dark .newchat-letter,
+body.theme-dark .newchat-letter {
+  color: #e5e7eb;
+  background: linear-gradient(to bottom, rgba(17, 24, 39, 0.98), rgba(17, 24, 39, 0.94));
+  border-top-color: #1f2937;
+  border-bottom-color: #1f2937;
+}
+
+.dark .newchat-letter::before,
+body.theme-dark .newchat-letter::before {
+  background: #64748b;
+  /* slate-500 */
+  opacity: .9;
+}
+
+/* ===== POPUP ===== */
 body.theme-dark .popup-sidebar {
   background: #233138;
   border-color: #2a3942;
@@ -244,7 +273,7 @@ body.theme-dark .popup-sep {
   background: #2a3942;
 }
 
-/* Toggle colors en dark */
+/* Toggle en dark */
 body.theme-dark .toggle-track {
   background: #3a4b55;
 }
@@ -253,16 +282,15 @@ body.theme-dark .toggle-thumb {
   background: #e9edef;
 }
 
-
-/* usar otra imagen y/o oscurecer el fondo en dark */
+/* ===== Wallpaper/imagen de chat (si usás ::before) ===== */
 body.theme-dark {
   --chat-bg-image: url("/assets/chat-bg-dark.png");
-  /* si no la tenés, podés dejar la misma */
+  /* si no la tenés, usá la misma del claro */
   --chat-bg-opacity: 0.12;
-  /* un poco menos intensa en dark */
+  /* menos intensa en dark */
 }
 
 body.theme-dark .chat-messages::before {
   filter: brightness(0.7) contrast(1.1);
-  /* por si usás la misma imagen */
+  /* si compartís imagen con claro */
 }
