@@ -294,3 +294,11 @@ body.theme-dark .chat-messages::before {
   filter: brightness(0.7) contrast(1.1);
   /* si compartís imagen con claro */
 }
+
+
+.theme-dark .sidebar-icon,
+.theme-dark .popup-icon,
+.theme-dark .composer-icon,
+.theme-dark .user-not-found {
+  color: white;
+}
