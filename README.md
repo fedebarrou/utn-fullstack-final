@@ -8,7 +8,7 @@ _Proyecto educativo que replica un flujo básico de WhatsApp: login, lista de ch
 
 ## ✨ Resumen
 
-- Contraseñoa **pepe123*
+- Contraseña **pepe123**
 - Inició en **HTML + JavaScript** y luego se **migró a React**.  
 - Se usan **useState**, **useEffect**, **React Router** y **Context** (tema y chat).  
 - **Lista de contactos** mantenida en un `.js` local para pruebas del curso.  
