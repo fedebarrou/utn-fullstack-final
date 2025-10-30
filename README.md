@@ -4,7 +4,7 @@ _Proyecto educativo que replica un flujo básico de WhatsApp: login, lista de ch
 
 **Stack:** React • React Router • Context API • CSS • localStorage • MatchMedia  
 **Deploy:** Vercel
-**Contraseña:pepe123**
+**Contraseña:** pepe123
 ---
 
 ## ✨ Resumen
